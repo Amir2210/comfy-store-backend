@@ -6,6 +6,7 @@ import { dbService } from '../../services/db.service.js'
 
 export const featuredProductsService = {
     query,
+    getById
 }
 
 async function query() {
@@ -15,6 +16,17 @@ async function query() {
         return featuredProducts
     } catch (err) {
         logger.error('cannot find featuredProducts', err)
+        throw err
+    }
+}
+
+async function getById(featuredProductId) {
+    try {
+        const collection = await dbService.getCollection('featuredProducts')
+        const featuredProduct = await collection.findOne({ _id: new ObjectId(featuredProductId) })
+        return featuredProduct
+    } catch (error) {
+        logger.error(`while finding featuredProduct ${featuredProductId}`, err)
         throw err
     }
 }

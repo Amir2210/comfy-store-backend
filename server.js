@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 import { featuredProductsRoutes } from './api/featuredProducts/featuredProductsroutes.js'
-app.use('/api/featuredProducts', featuredProductsRoutes)
+app.use('/api/featuredProduct', featuredProductsRoutes)
 
 // Make every unmatched server-side-route fall back to index.html
 // So when requesting http://localhost:3030/index.html/car/123 it will still respond with
