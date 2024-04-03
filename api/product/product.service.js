@@ -9,10 +9,15 @@ export const productsService = {
   getById,
 }
 
-async function query() {
+async function query(filterBy = { txt: '' }) {
   try {
+    const criteria = {
+      title: { $regex: filterBy.txt, $options: 'i' },
+    }
+    console.log(criteria)
     const collection = await dbService.getCollection('products')
-    var products = await collection.find().toArray()
+    var products = await collection.find(criteria).toArray()
+    // console.log('products', products)
     return products
   } catch (err) {
     logger.error('cannot find products', err)

@@ -2,11 +2,15 @@ import { logger } from '../../services/logger.service.js'
 import { productsService } from './product.service.js'
 
 export async function getProducts(req, res) {
-  console.log('req')
+  const nameInputValue = req.query.params.filterBy.txt
+  console.log('nameInputValue', nameInputValue)
   try {
-    logger.debug('Getting products')
-    const products = await productsService.query()
-    console.log(products)
+    const filterBy = {
+      txt: nameInputValue || ''
+    }
+    logger.debug('Getting products', filterBy)
+    const products = await productsService.query(filterBy)
+    // console.log(products)
     res.json(products)
   } catch (err) {
     logger.error('Failed to get products', err)
