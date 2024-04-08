@@ -43,12 +43,13 @@ async function query(filterBy = { txt: '', category: '', company: '', maxPrice: 
     } else if (sortBy.subject === '-title') {
       products = await collection.find(criteria, { skip, limit }).sort({ title: -1 }).toArray()
     } else {
-      totalItems = await collection.find(criteria).count()
+      totalItems = await collection.countDocuments(criteria)
       products = await collection.find(criteria, { skip, limit }).toArray()
     }
 
     if (!totalItems) {
-      totalItems = await collection.find(criteria).count()
+      // totalItems = await collection.find(criteria).count()
+      totalItems = await collection.countDocuments(criteria)
     }
     return { products, totalItems }
   } catch (err) {
