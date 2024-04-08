@@ -7,6 +7,7 @@ export async function getProducts(req, res) {
   const companyInputValue = req.query.params.filterBy.company
   const priceInputValue = req.query.params.filterBy.maxPrice
   const freeShippingInputValue = req.query.params.filterBy.freeShipping
+  const pageIdxInputValue = req.query.params.filterBy.pageIdx
   const sortBySubject = req.query.params.sortBy.by
   try {
     const filterBy = {
@@ -14,7 +15,8 @@ export async function getProducts(req, res) {
       category: categoryInputValue || '',
       company: companyInputValue || '',
       maxPrice: +priceInputValue > 0 ? +priceInputValue : Infinity,
-      freeShipping: freeShippingInputValue || ''
+      freeShipping: freeShippingInputValue || '',
+      pageIdx: pageIdxInputValue || 0
     }
 
     const sortBy = {
