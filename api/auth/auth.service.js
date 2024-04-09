@@ -37,12 +37,12 @@ async function signup(username, password, fullname) {
 }
 
 function getLoginToken(user) {
-    const userInfo = { 
-        _id : user._id, 
-        fullname: user.fullname, 
-        isAdmin: user.isAdmin 
+    const userInfo = {
+        _id: user._id,
+        fullname: user.fullname,
+        isAdmin: user.isAdmin
     }
-    return cryptr.encrypt(JSON.stringify(userInfo))    
+    return cryptr.encrypt(JSON.stringify(userInfo))
 }
 
 function validateToken(loginToken) {
@@ -50,7 +50,7 @@ function validateToken(loginToken) {
         const json = cryptr.decrypt(loginToken)
         const loggedinUser = JSON.parse(json)
         return loggedinUser
-    } catch(err) {
+    } catch (err) {
         console.log('Invalid login token')
     }
     return null
