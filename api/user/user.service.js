@@ -22,8 +22,6 @@ async function query(filterBy = {}) {
             delete user.password
             user.isHappy = true
             user.createdAt = ObjectId(user._id).getTimestamp()
-            // Returning fake fresh data
-            // user.createdAt = Date.now() - (1000 * 60 * 60 * 24 * 3) // 3 days ago
             return user
         })
         return users
@@ -36,7 +34,7 @@ async function query(filterBy = {}) {
 async function getById(userId) {
     try {
         const collection = await dbService.getCollection('user')
-        const user = await collection.findOne({ _id: ObjectId(userId) })
+        const user = await collection.findOne({ _id: new ObjectId(userId) })
         delete user.password
         return user
     } catch (err) {
@@ -67,13 +65,13 @@ async function remove(userId) {
 
 async function update(user) {
     try {
-        // peek only updatable fields!
+        // pick only updatable fields!
         const userToSave = {
-            _id: ObjectId(user._id),
-            username: user.username,
+            _id: new ObjectId(user._id),
+            cart: user.cart,
             fullname: user.fullname,
-            score: user.score
         }
+
         const collection = await dbService.getCollection('user')
         await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
         return userToSave
@@ -94,6 +92,7 @@ async function add(user) {
             username: user.username,
             password: user.password,
             fullname: user.fullname,
+            cart: user.cart || []
         }
         const collection = await dbService.getCollection('user')
         await collection.insertOne(userToAdd)
