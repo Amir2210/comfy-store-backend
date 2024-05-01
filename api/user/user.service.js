@@ -5,31 +5,13 @@ import mongodb from 'mongodb'
 const { ObjectId } = mongodb
 
 export const userService = {
-    query,
     getById,
     getByUsername,
-    remove,
     update,
     add
 }
 
-async function query(filterBy = {}) {
-    const criteria = _buildCriteria(filterBy)
-    try {
-        const collection = await dbService.getCollection('user')
-        var users = await collection.find(criteria).sort({ nickname: -1 }).toArray()
-        users = users.map(user => {
-            delete user.password
-            user.isHappy = true
-            user.createdAt = ObjectId(user._id).getTimestamp()
-            return user
-        })
-        return users
-    } catch (err) {
-        logger.error('cannot find users', err)
-        throw err
-    }
-}
+
 
 async function getById(userId) {
     try {
@@ -53,15 +35,7 @@ async function getByUsername(username) {
     }
 }
 
-async function remove(userId) {
-    try {
-        const collection = await dbService.getCollection('user')
-        await collection.deleteOne({ _id: ObjectId(userId) })
-    } catch (err) {
-        logger.error(`cannot remove user ${userId}`, err)
-        throw err
-    }
-}
+
 
 async function update(user) {
     try {
@@ -101,23 +75,4 @@ async function add(user) {
         logger.error('cannot insert user', err)
         throw err
     }
-}
-
-function _buildCriteria(filterBy) {
-    const criteria = {}
-    if (filterBy.txt) {
-        const txtCriteria = { $regex: filterBy.txt, $options: 'i' }
-        criteria.$or = [
-            {
-                username: txtCriteria
-            },
-            {
-                fullname: txtCriteria
-            }
-        ]
-    }
-    if (filterBy.minBalance) {
-        criteria.balance = { $gte: filterBy.minBalance }
-    }
-    return criteria
 }

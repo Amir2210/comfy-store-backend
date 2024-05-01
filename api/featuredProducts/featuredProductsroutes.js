@@ -1,6 +1,5 @@
 import express from 'express'
 
-import { requireAuth, requireAdmin } from '../../middlewares/requireAuth.middleware.js'
 import { log } from '../../middlewares/logger.middleware.js'
 import { getFeaturedProducts, getFeaturedProductById } from './featuredProducts.controller.js'
 

@@ -1,6 +1,5 @@
 import { ObjectId } from 'mongodb'
 
-import { utilService } from '../../services/util.service.js'
 import { logger } from '../../services/logger.service.js'
 import { dbService } from '../../services/db.service.js'
 
