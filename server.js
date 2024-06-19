@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'production') {
   // Configuring CORS
   const corsOptions = {
     // Make sure origin contains the url your frontend is running on
-    origin: ['http://127.0.0.1:5173', 'http://localhost:5173', 'http://127.0.0.1:3000', 'http://localhost:3000'],
+    origin: ['http://127.0.0.1:5175', 'http://localhost:5175', 'http://127.0.0.1:3000', 'http://localhost:3000'],
     credentials: true
   }
   app.use(cors(corsOptions))
@@ -53,7 +53,7 @@ app.get('/**', (req, res) => {
   res.sendFile(path.resolve('public/index.html'))
 })
 
-const port = process.env.PORT || 3030
+const port = process.env.PORT || 3031
 
 app.listen(port, () => {
   logger.info('Server is running on port: ' + port)
