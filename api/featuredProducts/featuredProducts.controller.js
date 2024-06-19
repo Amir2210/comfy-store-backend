@@ -3,6 +3,7 @@ import { featuredProductsService } from './featuredProducts.service.js'
 
 export async function getFeaturedProducts(req, res) {
     console.log('req')
+    console.log(process.env.NODE_ENV)
     try {
         logger.debug('Getting featuredProducts')
         const featuredProducts = await featuredProductsService.query()
