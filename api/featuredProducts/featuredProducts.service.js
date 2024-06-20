@@ -13,8 +13,7 @@ async function query() {
         const collection = await dbService.getCollection('featuredProducts')
         console.log(collection)
         var featuredProducts = await collection.find().toArray()
-        // return featuredProducts
-        return collection
+        return featuredProducts
     } catch (err) {
         logger.error('cannot find featuredProducts', err)
         throw err
