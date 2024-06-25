@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "set SECRET1=amir2210 & set SECRETMONGO=PiElWkxVUTl9UdQK & nodemon --ignore \"./data\" server.js"
+    "dev": "set SECRET1=amir2210 & set SECRETMONGO=process.env.SECRETMONGO & nodemon --ignore \"./data\" server.js"
   },
   "keywords": [],
   "type": "module",
