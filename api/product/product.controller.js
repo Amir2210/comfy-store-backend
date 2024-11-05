@@ -25,7 +25,7 @@ export async function getProducts(req, res) {
 
     logger.debug('Getting products', filterBy)
     const products = await productsService.query(filterBy, sortBy)
-    // console.log(products)
+    console.log(products)
     res.json(products)
   } catch (err) {
     logger.error('Failed to get products', err)
